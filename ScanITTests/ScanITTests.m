@@ -26,7 +26,7 @@
 
 - (void)testExample
 {
-    STFail(@"Unit tests are not implemented yet in ScanITTests");
+    XCTFail(@"Unit tests are not implemented yet in ScanITTests");
 }
 
 @end

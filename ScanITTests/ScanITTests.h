@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 AUBMC. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface ScanITTests : SenTestCase
+@interface ScanITTests : XCTestCase
 
 @end
