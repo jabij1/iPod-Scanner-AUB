@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 44;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -62,6 +62,7 @@
 		188EBBA4173A86D700E44613 /* LINEAPro4U_XBAMCMBLRF_296.bin in Resources */ = {isa = PBXBuildFile; fileRef = 188EBB7A173A86D600E44613 /* LINEAPro4U_XBAMCMBLRF_296.bin */; };
 		188EBBA5173A86D700E44613 /* LINEATab4_NBAMBLRF_500.BIN in Resources */ = {isa = PBXBuildFile; fileRef = 188EBB7B173A86D600E44613 /* LINEATab4_NBAMBLRF_500.BIN */; };
 		188EBBA6173A86D700E44613 /* Opticon_FL49J09.bin in Resources */ = {isa = PBXBuildFile; fileRef = 188EBB7C173A86D600E44613 /* Opticon_FL49J09.bin */; };
+		C3A6C398191A6CC800F7866B /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A6C397191A6CC800F7866B /* warning.png */; };
 		C3B06A7D1917A66F0043CA9B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3B06A7C1917A66F0043CA9B /* Images.xcassets */; };
 		C3B06AC01917D4E00043CA9B /* MainStoryBoard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3B06ABE1917D4E00043CA9B /* MainStoryBoard_iPhone.storyboard */; };
 		C3EDC97B1911278E0035FDFE /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDC9791911278E0035FDFE /* LoginViewController.m */; };
@@ -91,7 +92,7 @@
 		1837842E1721A643005D2E23 /* ScanIT-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ScanIT-Prefix.pch"; sourceTree = "<group>"; };
 		1837842F1721A643005D2E23 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		183784301721A643005D2E23 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		183784511721A643005D2E23 /* ScanITTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanITTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		183784511721A643005D2E23 /*  */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; name = ""; sourceTree = BUILT_PRODUCTS_DIR; };
 		1837845A1721A643005D2E23 /* ScanITTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ScanITTests-Info.plist"; sourceTree = "<group>"; };
 		1837845C1721A643005D2E23 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1837845E1721A643005D2E23 /* ScanITTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanITTests.h; sourceTree = "<group>"; };
@@ -141,8 +142,9 @@
 		188EBB7B173A86D600E44613 /* LINEATab4_NBAMBLRF_500.BIN */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = LINEATab4_NBAMBLRF_500.BIN; sourceTree = "<group>"; };
 		188EBB7C173A86D600E44613 /* Opticon_FL49J09.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = Opticon_FL49J09.bin; sourceTree = "<group>"; };
 		188EBBAA173A8EB300E44613 /* DTDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTDevices.h; sourceTree = "<group>"; };
-		C3B06A7C1917A66F0043CA9B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C3B06ABF1917D4E00043CA9B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryBoard_iPhone.storyboard; sourceTree = "<group>"; };
+		C3A6C397191A6CC800F7866B /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warning.png; sourceTree = "<group>"; };
+		C3B06A7C1917A66F0043CA9B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images.xcassets; sourceTree = "<group>"; };
+		C3B06ABF1917D4E00043CA9B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = en; path = en.lproj/MainStoryBoard_iPhone.storyboard; sourceTree = "<group>"; };
 		C3EDC9791911278E0035FDFE /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		C3EDC97A1911278E0035FDFE /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C3EDC97C191149BD0035FDFE /* login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login.png; sourceTree = "<group>"; };
@@ -188,7 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				1837841D1721A643005D2E23 /* ScanIT.app */,
-				183784511721A643005D2E23 /* ScanITTests.xctest */,
+				183784511721A643005D2E23 /*  */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -223,6 +225,7 @@
 		183784271721A643005D2E23 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C3A6C397191A6CC800F7866B /* warning.png */,
 				188EBAFB173A843800E44613 /* libdtdev.a */,
 				188EBBAA173A8EB300E44613 /* DTDevices.h */,
 				C3EDC97C191149BD0035FDFE /* login.png */,
@@ -338,7 +341,7 @@
 			);
 			name = ScanITTests;
 			productName = ScanITTests;
-			productReference = 183784511721A643005D2E23 /* ScanITTests.xctest */;
+			productReference = 183784511721A643005D2E23 /*  */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -352,8 +355,7 @@
 				ORGANIZATIONNAME = AUBMC;
 			};
 			buildConfigurationList = 183784181721A643005D2E23 /* Build configuration list for PBXProject "ScanIT" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -393,6 +395,7 @@
 				188EBB8B173A86D600E44613 /* LINEAPad2L_XBAMBL_296.bin in Resources */,
 				188EBB8C173A86D600E44613 /* LINEAPad2L_XBAMBLRF_296.bin in Resources */,
 				188EBB8D173A86D700E44613 /* LINEAPad2L_XBAMCMBL_296.bin in Resources */,
+				C3A6C398191A6CC800F7866B /* warning.png in Resources */,
 				188EBB8E173A86D700E44613 /* LINEAPad2L_XBAMCMBLRF_296.bin in Resources */,
 				188EBB8F173A86D700E44613 /* LINEAPro1_1BAM_288.bin in Resources */,
 				188EBB90173A86D700E44613 /* LINEAPro1_BM_288.bin in Resources */,

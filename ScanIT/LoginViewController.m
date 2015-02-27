@@ -15,7 +15,7 @@
 @end
 
 @implementation LoginViewController
-@synthesize username, password, usernameBox, passwordBox, wrongCredentialsLabel;
+@synthesize username, password, salt, usernameBox, passwordBox, wrongCredentialsLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +33,7 @@
     
     username = nil;
     password = nil;
+    salt = @"72to6j";
     usernameBox.delegate = self;
     passwordBox.delegate = self;
     
@@ -82,12 +83,25 @@
     password = [NSString stringWithFormat:@"%@", passwordBox.text];
     
     //prepare post data with username and password for connection
-    NSString* postInfo =[[NSString alloc] initWithFormat:@"username=%@&password=%@&salt=72to6j", username, password];
+    NSString* postInfo =[[NSString alloc] initWithFormat:@"username=%@&password=%@&salt=%@", username, password, salt];
     NSData* postData = [postInfo dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     NSString* postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
     
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:@"http://192.168.1.74/scanner/login.php"]];
+    [request setURL:[NSURL URLWithString:@"http://192.168.43.92/home/login.php"]];
+    //
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     [request setHTTPMethod:@"POST"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -113,6 +127,9 @@
     NSError* error;
     NSDictionary* barcodeResult = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
     int success = [[barcodeResult valueForKey:@"success"] intValue]; //to check if the login is successful
+    
+    //save token to NSUserDefaults
+    [userDefaults setValue:[barcodeResult valueForKey:@"token"] forKey:@"token"];
     
     //check login
     if(success == 1) {

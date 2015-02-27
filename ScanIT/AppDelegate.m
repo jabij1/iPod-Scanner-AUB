@@ -33,7 +33,7 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
     //start logout timer. After 10 min of user inactivity, logout user
-    [NSTimer scheduledTimerWithTimeInterval:600 target:self selector:@selector(logout) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(logout) userInfo:nil repeats:NO];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

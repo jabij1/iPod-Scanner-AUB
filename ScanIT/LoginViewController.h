@@ -12,10 +12,12 @@
 {
     NSString* username;
     NSString* password;
+    NSString* salt;
 }
 
 @property NSString* username;
 @property NSString* password;
+@property NSString* salt;
 
 @property (strong, nonatomic) IBOutlet UITextField *usernameBox;
 @property (strong, nonatomic) IBOutlet UITextField *passwordBox;

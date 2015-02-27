@@ -16,7 +16,7 @@
 @end
 
 @implementation HomeViewController
-@synthesize scanButton, suspendDisplayInfo, resultText, resultToken, supervisor;
+@synthesize scanButton, suspendDisplayInfo, resultText, resultToken, resultTokenError, supervisor, warningIcon;
 
 bool scanActive = false;
 NSTimer *ledTimer = nil;
@@ -139,7 +139,8 @@ NSTimer *ledTimer = nil;
 -(void)barcodeData:(NSString *)barcode type:(int)type
 {
     //send barcode to server to verify
-    [self VerifyBarcode:barcode];}
+    [self VerifyBarcode:barcode];
+}
 
 //This method is called after the barcode is read (inside barcodeData:type). This method connects to the server to verify if student is elligible to vote
 -(void) VerifyBarcode:(NSString *)barcode
@@ -147,12 +148,17 @@ NSTimer *ledTimer = nil;
     NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
     
     //prepare post data with username and password for connection
-    NSString* postInfo =[[NSString alloc] initWithFormat:@"barcode=%@&username=%@", barcode, [userDefaults valueForKey:@"username"]];
+    NSString* postInfo =[[NSString alloc] initWithFormat:@"barcode=%@&username=%@&token=%@", barcode, [userDefaults valueForKey:@"username"], [userDefaults valueForKey:@"token"]];
     NSData* postData = [postInfo dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     NSString* postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
     
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:@"http://192.168.1.74/scanner/verifyStudent.php"]];
+    [request setURL:[NSURL URLWithString:@"http://192.168.43.92/scan.php"]];
+    
+    
+    
+    
+    
     [request setHTTPMethod:@"POST"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -163,8 +169,15 @@ NSTimer *ledTimer = nil;
     
     //inform user of connection error
     if(!connection) {
-        resultText.textColor = [UIColor redColor];
-        [resultText setText:@"Error starting connection"];
+        resultToken.backgroundColor = [UIColor whiteColor];
+        resultToken.text = @"Connection Error";
+        resultToken.textColor = [UIColor redColor];
+        resultToken.font = [UIFont systemFontOfSize:19];
+        
+        //display and show labels
+        warningIcon.hidden = YES;
+        resultTokenError.hidden = YES;
+        resultToken.hidden = NO;
     }
 }
 
@@ -173,10 +186,7 @@ NSTimer *ledTimer = nil;
     //get connection data result as JSON, then store as dictionary and get student information
     NSError *error;
     NSDictionary *barcodeResult = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    NSString* name = [barcodeResult valueForKey:@"name"];
-    NSString* class = [barcodeResult valueForKey:@"class"];
-    NSString *department = [barcodeResult valueForKey:@"department"];
-    NSString* faculty = [barcodeResult valueForKey:@"faculty"];
+    NSString* message = [barcodeResult valueForKey:@"message"];
     NSString* color = [barcodeResult valueForKey:@"color"];
     int success = [[barcodeResult valueForKey:@"success"] intValue];
     
@@ -185,52 +195,28 @@ NSTimer *ledTimer = nil;
     UIColor* tokenColor = [[UIColor alloc] initWithRed:[tokenColorComponents[0] floatValue] green:[tokenColorComponents[1] floatValue] blue:[tokenColorComponents[2] floatValue] alpha:0.45];
     
     if(success == 1){
-        resultText.text = [[NSString alloc] initWithFormat:@"%@\n%@\n%@\n%@", name, class, department, faculty];
-        resultText.textColor = [UIColor blackColor];
-        resultText.font = [UIFont systemFontOfSize:17];
-        resultToken.alpha = 0.45;
+        resultToken.font = [UIFont systemFontOfSize:21];
         resultToken.backgroundColor = tokenColor;
-        resultToken.text = @"";
+        resultToken.textColor = [UIColor blackColor];
+        resultToken.text = message;
+        warningIcon.hidden = YES;
+        
+        //display and show labels
+        warningIcon.hidden = YES;
+        resultTokenError.hidden = YES;
+        resultToken.hidden = NO;
     } else if(success == 0) {
-        resultText.text = [[NSString alloc] initWithFormat:@"%@\n%@\n%@\n%@", name, class, department, faculty];
-        resultText.textColor = [UIColor blackColor];
-        resultText.font = [UIFont systemFontOfSize:17];
-        resultToken.backgroundColor = [UIColor whiteColor];
-        resultToken.text = @"Student inelligible to vote";
-        resultToken.textColor = [UIColor redColor];
-        resultToken.font = [UIFont systemFontOfSize:17];
+        resultTokenError.backgroundColor = [UIColor whiteColor];
+        resultTokenError.text = message;
+        resultTokenError.textColor = [UIColor redColor];
+        resultTokenError.font = [UIFont systemFontOfSize:19];
+        
+        //display and show labels
+        warningIcon.hidden = NO;
+        resultTokenError.hidden = NO;
+        resultToken.hidden = YES;
     }
     
-}
-
--(void)simulateConnectionDidReceiveData:(NSString* ) barcode
-{
-    //simulate get connection data result as JSON, then store as dictionary and get student information
-    NSDictionary *barcodeResult;
-    if([barcode  isEqual: @"5283001501324"])
-        barcodeResult = [[NSDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:@"Anthony Eid", @"Senior", @"Computer Engineering", @"FEA", @"1", @"255, 255, 0", nil] forKeys:[[NSArray alloc] initWithObjects:@"name", @"class", @"department", @"faculty", @"success", @"color", nil]];
-    NSString* name = [barcodeResult valueForKey:@"name"];
-    NSString* class = [barcodeResult valueForKey:@"class"];
-    NSString *department = [barcodeResult valueForKey:@"department"];
-    NSString* faculty = [barcodeResult valueForKey:@"faculty"];
-    NSString* color = [barcodeResult valueForKey:@"color"];
-    int success = [[barcodeResult valueForKey:@"success"] intValue];
-    
-    //get token color
-    NSArray* tokenColorComponents = [color componentsSeparatedByString:@","];
-    UIColor* tokenColor = [[UIColor alloc] initWithRed:[tokenColorComponents[0] floatValue] green:[tokenColorComponents[1] floatValue] blue:[tokenColorComponents[2] floatValue] alpha:0.45];
-    
-    if(success == 1){
-        resultText.text = [[NSString alloc] initWithFormat:@"%@\n%@\n%@\n%@", name, class, department, faculty];
-        resultText.textColor = [UIColor blackColor];
-        resultText.font = [UIFont systemFontOfSize:17];
-        resultToken.backgroundColor = tokenColor;
-        resultToken.text = @"";
-    } else if(success == 0) {
-        resultText.hidden = NO;
-        resultText.text = @"Error: Student inelligible to vote";
-        resultText.textColor = [UIColor redColor];
-    }
 }
 
 -(NSString *)getLogFile
@@ -311,14 +297,13 @@ NSTimer *ledTimer = nil;
         [scannerDevice uiControlLEDsWithBitMask:0 error:nil];
     }
     
-	//[statusImage setImage:[UIImage imageNamed:@"connected.png"]];
     int scanMode;
     
     if([scannerDevice barcodeGetScanMode:&scanMode error:&error] && scanMode!=MODE_MOTION_DETECT)
         SHOWERR1([scannerDevice barcodeStopScan:&error]);
     
     //simulate scan
-    [self VerifyBarcode:@"5281001113059"];
+    [self VerifyBarcode:@"9780262015066"];
 }
 
 -(void)connectionState:(int)state {
